@@ -15,7 +15,11 @@ def compter_mots(texte: str) -> dict[str, int]:
     >>> compter_mots("Le chat et le chien.")
     {'le': 2, 'chat': 1, 'et': 1, 'chien': 1}
     """
-    raise NotImplementedError
+    compteur = {}
+    for word in texte :
+        if word in compteur :
+            compteur
+    
 
 
 def dedoublonner(elements: list) -> list:

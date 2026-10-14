@@ -55,7 +55,11 @@ def somme_jusqua(n: int) -> int:
     >>> somme_jusqua(4)
     10
     """
-    raise NotImplementedError
+    somme = 0
+    if n > 0 :
+        for i in range(n) :
+            somme += i + 1
+    return somme
 
 
 def compter_voyelles(texte: str) -> int:
@@ -64,7 +68,13 @@ def compter_voyelles(texte: str) -> int:
     >>> compter_voyelles("Python")
     2
     """
-    raise NotImplementedError
+    voyelles = 0
+    voy_liste = ("a","e", "i", "o", "u", "y")
+    for lettre in texte :
+        if lettre.lower() in voy_liste :
+            voyelles += 1
+    return voyelles
+
 
 
 def table_multiplication(n: int) -> list[str]:
@@ -73,7 +83,12 @@ def table_multiplication(n: int) -> list[str]:
     >>> table_multiplication(7)[:2]
     ['7 x 1 = 7', '7 x 2 = 14']
     """
-    raise NotImplementedError
+    mult_table = []
+    for i in range(10):
+        mult_table.append(f"{n} x {i + 1} = {(i + 1) * n}")
+    return mult_table
+
+    
 
 
 def plus_grand(nombres: list[float]) -> float | None:
@@ -84,7 +99,15 @@ def plus_grand(nombres: list[float]) -> float | None:
     >>> plus_grand([3, 9, 5])
     9
     """
-    raise NotImplementedError
+    if len(nombres) == 0 :
+        return None
+    else :
+        max = nombres[0]
+        for n in nombres :
+            if max < n :
+                max = n
+        return max
+
 
 
 def premier_multiple(nombres: list[int], diviseur: int) -> int | None:
@@ -93,7 +116,12 @@ def premier_multiple(nombres: list[int], diviseur: int) -> int | None:
     >>> premier_multiple([5, 8, 9, 12], 3)
     9
     """
-    raise NotImplementedError
+    if len(nombres) == 0 :
+        return None
+    else :
+        for n in nombres :
+            if n%diviseur == 0 :
+                return n
 
 
 def compte_a_rebours(n: int) -> list[int]:
@@ -102,7 +130,11 @@ def compte_a_rebours(n: int) -> list[int]:
     >>> compte_a_rebours(3)
     [3, 2, 1, 0]
     """
-    raise NotImplementedError
+    numbers = []
+    for i in range(n,-1,-1):
+        numbers.append(i)
+    return numbers
+
 
 
 def total_par_categorie(achats: list[tuple[str, float]]) -> dict[str, float]:
@@ -111,4 +143,12 @@ def total_par_categorie(achats: list[tuple[str, float]]) -> dict[str, float]:
     >>> total_par_categorie([("fruits", 2.0), ("pain", 1.0), ("fruits", 3.0)])
     {'fruits': 5.0, 'pain': 1.0}
     """
-    raise NotImplementedError
+    stock = {}
+    for ach in achats :
+        produit, quantite = ach
+        if produit in stock :
+            stock[produit] = stock[produit] + quantite
+        else :
+            stock[produit] = quantite
+    return stock
+

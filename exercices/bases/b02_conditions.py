@@ -41,7 +41,10 @@ def est_pair(n: int) -> bool:
     >>> est_pair(4)
     True
     """
-    raise NotImplementedError
+    if n % 2 == 0:
+        return True
+    else:
+        return False
 
 
 def maximum_de_trois(a: float, b: float, c: float) -> float:
@@ -50,7 +53,14 @@ def maximum_de_trois(a: float, b: float, c: float) -> float:
     >>> maximum_de_trois(3, 9, 5)
     9
     """
-    raise NotImplementedError
+    max = a
+    if a < b < c :
+        return c
+    elif a < b :
+        return b
+    else :
+        return a
+
 
 
 def mention(note: float) -> str:
@@ -65,7 +75,17 @@ def mention(note: float) -> str:
     >>> mention(13)
     'assez bien'
     """
-    raise NotImplementedError
+    if note >= 16 :
+        return "très bien"
+    elif note >= 14 :
+        return "bien"
+    elif note >= 12 :
+        return "assez bien"
+    elif note >= 10 :
+        return "passable"
+    else :
+        return "insuffisant"
+
 
 
 def est_bissextile(annee: int) -> bool:
@@ -79,7 +99,12 @@ def est_bissextile(annee: int) -> bool:
     >>> est_bissextile(1900)
     False
     """
-    raise NotImplementedError
+    if annee%100 == 0 and annee%400 != 0 :
+        return False
+    if annee%4 == 0 :
+        return True
+    else :
+        return False
 
 
 def prix_billet(age: int, etudiant: bool) -> float:
@@ -95,4 +120,12 @@ def prix_billet(age: int, etudiant: bool) -> float:
     >>> prix_billet(30, False)
     10.0
     """
-    raise NotImplementedError
+    if age >= 65 :
+        return 7.0
+    elif age < 12 :
+        return 5.0
+    elif etudiant == True :
+        return 8.0
+    else :
+        return 10.0
+

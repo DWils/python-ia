@@ -47,7 +47,7 @@ def premier_et_dernier(elements: list) -> tuple:
     >>> premier_et_dernier([4, 8, 15])
     (4, 15)
     """
-    raise NotImplementedError
+    return (elements[0], elements[-1])
 
 
 def trois_premiers(elements: list) -> list:
@@ -56,7 +56,7 @@ def trois_premiers(elements: list) -> list:
     >>> trois_premiers([1, 2, 3, 4, 5])
     [1, 2, 3]
     """
-    raise NotImplementedError
+    return elements[:3]
 
 
 def ajouter_a_la_fin(elements: list, element) -> list:
@@ -65,7 +65,8 @@ def ajouter_a_la_fin(elements: list, element) -> list:
     >>> ajouter_a_la_fin([1, 2], 3)
     [1, 2, 3]
     """
-    raise NotImplementedError
+    elements2 = elements + [element]
+    return elements2
 
 
 def contient(elements: list, element) -> bool:
@@ -74,7 +75,7 @@ def contient(elements: list, element) -> bool:
     >>> contient(["a", "b"], "b")
     True
     """
-    raise NotImplementedError
+    return element in elements
 
 
 def age_de(annuaire: dict[str, int], nom: str) -> int | None:
@@ -83,7 +84,7 @@ def age_de(annuaire: dict[str, int], nom: str) -> int | None:
     >>> age_de({"Ana": 31}, "Ana")
     31
     """
-    raise NotImplementedError
+    return annuaire.get(nom, None)
 
 
 def ajouter_stock(stock: dict[str, int], produit: str, quantite: int) -> dict[str, int]:
@@ -94,4 +95,8 @@ def ajouter_stock(stock: dict[str, int], produit: str, quantite: int) -> dict[st
     >>> ajouter_stock({"pomme": 3}, "pomme", 2)
     {'pomme': 5}
     """
-    raise NotImplementedError
+    if produit in stock :
+        stock[produit] = stock[produit] + quantite
+    else :
+        stock[produit] = quantite
+    return stock

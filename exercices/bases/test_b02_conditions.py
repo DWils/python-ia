@@ -17,7 +17,14 @@ def test_est_pair():
 
 @pytest.mark.parametrize(
     ("a", "b", "c", "attendu"),
-    [(3, 9, 5, 9), (9, 3, 5, 9), (3, 5, 9, 9), (2, 2, 2, 2), (-1, -5, -3, -1)],
+    [
+        (3, 9, 5, 9),
+        (9, 3, 5, 9),
+        (3, 5, 9, 9),
+        (5, 3, 9, 9),
+        (2, 2, 2, 2),
+        (-1, -5, -3, -1),
+    ],
 )
 def test_maximum_de_trois(a, b, c, attendu):
     assert maximum_de_trois(a, b, c) == attendu
