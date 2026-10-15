@@ -4,6 +4,63 @@ Les quatre premières fonctions sont des générateurs : elles utilisent `yield`
 et ne construisent jamais la liste complète en mémoire.
 
     uv run pytest exercices/etape2/test_ex06_generateurs.py
+
+NOTIONS À SAVOIR
+----------------
+Une fonction qui contient `yield` devient un générateur : elle produit
+ses valeurs une par une, à la demande, au lieu de renvoyer une liste.
+
+    def compter_jusqua(n):
+        i = 1
+        while i <= n:
+            yield i            # met la fonction en pause et donne i
+            i += 1
+
+    gen = compter_jusqua(3)
+    next(gen)                  # 1
+    next(gen)                  # 2
+    list(compter_jusqua(3))    # [1, 2, 3]
+
+Rien ne s'exécute avant la première demande : une erreur levée au début
+du générateur n'apparaît qu'au premier `next()` ou `list()`.
+
+Un générateur peut être infini (`while True:`) : on en prend un morceau
+avec `itertools.islice`.
+
+    from itertools import islice
+    list(islice(generateur_infini(), 5))     # les 5 premières valeurs
+
+Un générateur ne se parcourt qu'une fois, et ne supporte ni `len()` ni
+les tranches `[a:b]`. Pour traiter n'importe quel itérable, il faut donc
+le parcourir avec `for`.
+
+`yield` dans une boucle `for`, avec un filtre :
+
+    def positifs(nombres):
+        for x in nombres:
+            if x > 0:
+                yield x
+
+Tranches et tuples : `tuple(liste[i:i + 3])` donne 3 éléments à partir de i.
+
+Gestionnaire de contexte : un objet utilisable avec `with`. Il définit
+`__enter__` (appelé à l'entrée, sa valeur de retour va dans `as`) et
+`__exit__` (appelé à la sortie, TOUJOURS, même en cas d'exception).
+
+    class Annonce:
+        def __enter__(self):
+            print("début")
+            return self
+
+        def __exit__(self, type_exc, valeur_exc, trace):
+            print("fin")
+            return False       # False : l'exception éventuelle continue sa route
+
+    with Annonce() as a:
+        print("dans le bloc")
+
+Mesurer une durée : `time.perf_counter()` renvoie un instant en secondes ;
+la différence entre deux appels donne le temps écoulé.
 """
 
 from collections.abc import Iterable, Iterator
