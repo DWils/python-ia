@@ -73,6 +73,7 @@ Une fonction est un objet : on peut lui ajouter un attribut, `f.compte = 0`.
 """
 
 from collections.abc import Callable
+import functools
 
 
 def normaliser(valeurs: list[float], *, mini: float = 0.0, maxi: float = 1.0) -> list[float]:
@@ -84,7 +85,19 @@ def normaliser(valeurs: list[float], *, mini: float = 0.0, maxi: float = 1.0) ->
     >>> normaliser([10, 20, 30])
     [0.0, 0.5, 1.0]
     """
-    raise NotImplementedError
+    if valeurs == []:
+        return valeurs
+    plus_petite = min(valeurs)
+    plus_grande = max(valeurs)
+
+    if plus_petite == plus_grande:
+        return [mini] * len(valeurs)
+
+    ecart = plus_grande - plus_petite
+    return [mini + (v - plus_petite) / ecart * (maxi - mini) for v in valeurs]
+
+
+
 
 
 def ajouter_element(element, liste: list | None = None) -> list:
@@ -97,7 +110,11 @@ def ajouter_element(element, liste: list | None = None) -> list:
     >>> ajouter_element(2)
     [2]
     """
-    raise NotImplementedError
+    if liste is None :
+        return [element]
+    else :
+        liste.append(element)
+        return liste
 
 
 def composer(*fonctions: Callable) -> Callable:
@@ -108,7 +125,11 @@ def composer(*fonctions: Callable) -> Callable:
     >>> composer(str.strip, str.upper)("  ia ")
     'IA'
     """
-    raise NotImplementedError
+    def enchainer(x):
+        for f in fonctions:
+            x = f(x)
+        return x
+    return enchainer
 
 
 def compteur() -> Callable[[], int]:
@@ -116,7 +137,13 @@ def compteur() -> Callable[[], int]:
 
     Chaque compteur créé est indépendant des autres.
     """
-    raise NotImplementedError
+    n = 0
+
+    def suivant():
+        nonlocal n 
+        n += 1
+        return n
+    return suivant
 
 
 def compter_appels(fonction: Callable) -> Callable:
@@ -132,4 +159,10 @@ def compter_appels(fonction: Callable) -> Callable:
     >>> double.appels
     1
     """
-    raise NotImplementedError
+    @functools.wraps(fonction)
+    def enveloppe(*args, **kwargs):
+        enveloppe.appels += 1
+        return fonction(*args, **kwargs)
+
+    enveloppe.appels = 0
+    return enveloppe
